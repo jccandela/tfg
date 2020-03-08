@@ -1,0 +1,1 @@
+http://akirasan.net/minigateway-lora-monocanal-con-esp32/
