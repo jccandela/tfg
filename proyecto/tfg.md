@@ -50,3 +50,11 @@ Al cargar un programa de ejemplo en el arduino, no encuentra puerto de serie, se
 1. Crear cuenta en Trello
 2. Creamos tablero
 3. Flujo a seguir en Trello
+
+## Problemas encontrados
+
+### Failed to conect to ESP32
+
+![Failed to conect to ESP32](../capturas/errores/connect.png)
+
+Solución encontrada en <https://medium.com/@KestlerEdwin/usando-ttgo-como-echar-andar-el-esp30-oled-lora-en-900mhz-ad41d38bcd33>
