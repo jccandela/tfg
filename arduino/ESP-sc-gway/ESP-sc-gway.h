@@ -190,12 +190,20 @@
 //#define _THINGSERVER "yourServer.com"		// Server URL of the LoRa-udp.js handler
 
 // Gateway Ident definitions
+//#define _DESCRIPTION "My ESP32 Gateway"
+//#define _EMAIL "j.kersing@the-box.com"
+//#define _PLATFORM "ESP32"
+//#define _LAT 53.189
+//#define _LON 6.557
+//#define _ALT 8
+
 #define _DESCRIPTION "My ESP32 Gateway"
 #define _EMAIL "jccandelabordera@gmail.com"
 #define _PLATFORM "ESP32"
 #define _LAT 38.5986
 #define _LON -0.6678
 #define _ALT 8
+
 
 // ntp
 #define NTP_TIMESERVER "es.pool.ntp.org"	// Country and region specific
