@@ -1,20 +1,18 @@
-var ttn = require("ttn")
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var morgan      = require('morgan');
+var apiRoutes   = require('./app/routes/routes')
+var app = express()
 
-var appID = "lora-node-jcarloscandela"
-var accessKey = "ttn-account-v2.887Flf39sj7QaSAteMdXc8t0VSEpfc1A-kSVKcQEiu8"
+// use body parser so we can get info from POST and/or URL parameters
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-console.log("Program running")
+// use morgan to log requests to the console
+app.use(morgan('dev'));
 
-ttn.data(appID, accessKey).then(function (client) {
-        client.on("uplink", function (devID, payload) {
-            console.log("Received uplink from ", devID)
-            console.log(payload)
-			console.log(payload.dev_id)
-			console.log(payload.payload_fields)
-			console.log(payload.payload_fields.Temp)
-        })
-    })
-    .catch(function (error) {
-        console.error("Error", error)
-        process.exit(1)
-    })
+// API ROUTES -------------------
+app.use('/api', apiRoutes);
+
+module.exports = app
+

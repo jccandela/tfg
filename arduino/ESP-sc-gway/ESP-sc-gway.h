@@ -250,7 +250,8 @@ struct wpas {
 #if 1
 wpas wpa[] = {
 	{ "" , "" },							// Reserved for WiFi Manager
-  { "movitel-candela", "2013movitelcandela2013" }
+  { "movitel-candela", "2013movitelcandela2013" },
+  { "Movitel-Rural202", "2013movitelcandela2013" }
 };
 #else
 // Place outside version control to avoid the risk of commiting it to github ;-)
