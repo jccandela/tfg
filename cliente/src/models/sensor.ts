@@ -1,3 +1,5 @@
+import { Payload } from './payload';
+
 export interface Gateway {
     gtw_id: string;
     timestamp: number;
@@ -28,5 +30,6 @@ export interface Sensor {
     hardware_serial: string;
     metadata: Metadata;
     __v: number;
+    lastPayload: Payload;
 }
 

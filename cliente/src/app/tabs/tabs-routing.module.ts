@@ -7,24 +7,32 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     children: [
+      // {
+      //   path: 'tab1',
+      //   loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+      // },
+      // {
+      //   path: 'tab2',
+      //   loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+      // },
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'sensors',
+        loadChildren: () => import('../sensors/sensors.module').then(m => m.SensorsPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'settings',
+        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/sensors',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/sensors',
     pathMatch: 'full'
   }
 ];
