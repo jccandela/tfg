@@ -1,4 +1,5 @@
 var Payload = require('../models/payload'); // get our mongoose model
+var Sensor = require('../models/sensor'); // get our mongoose model
 
 function save(dev_id, payload_fields) {
     let payload = new Payload();
@@ -7,6 +8,22 @@ function save(dev_id, payload_fields) {
     payload.payload_date = new Date();
 
     payload.save();
+
+    Sensor.findOne({dev_id: dev_id}).exec(
+        function(err,sensor){
+            if (err) {
+                console.log('Error obteniendo el sensor para actualiazr su último payload')
+            }
+
+            if (!sensor) {
+                console.log('El sensor no existe')
+            }
+
+            sensor.lastPayload = payload;
+
+            sensor.save();
+        }
+    )
 }
 
 function getLastPayload(req, res) {
