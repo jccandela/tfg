@@ -7,12 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'sensors',
-    loadChildren: () => import('./sensors/sensors.module').then( m => m.SensorsPageModule)
+    path: 'nodes',
+    loadChildren: () => import('./nodes/nodes.module').then( m => m.NodesPageModule)
   },
   {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'nodes/:devid',
+    loadChildren: () => import('./node/node.module').then( m => m.NodePageModule)
   }
 ];
 @NgModule({

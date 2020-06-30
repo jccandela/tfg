@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 var config = require('./config'); 
 var app   =  require('./app');
-var sensor = require('./app/controllers/sensor');
+var nodo = require('./app/controllers/node');
 
 var mongoOpts = {
     useNewUrlParser: true, 
@@ -32,7 +32,7 @@ ttn.data(appID, accessKey).then(function (client) {
     client.on("uplink", function (devID, payload) {
         console.log("Received uplink from ", devID)
         //console.log(payload);
-        sensor.createSensor(payload);
+        nodo.createNode(payload);
 
         // console.log(payload.dev_id)
         // console.log(payload.payload_fields)

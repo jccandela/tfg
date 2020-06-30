@@ -32,6 +32,7 @@
 #include <lmic.h>
 #include <hal/hal.h>
 #include <SPI.h>
+#include "DHT.h"
 
 // LoRaWAN NwkSKey, network session key
 // This is the default Semtech key, which is used by the early prototype TTN
@@ -56,6 +57,19 @@ void os_getDevKey (u1_t* buf) { }
 static uint8_t mydata[] = "Hello, world!";
 static osjob_t sendjob;
 
+typedef struct sensorData {
+  float temperature;
+  float humidity;
+  int16_t level;
+};
+
+#define PACKET_SIZE sizeof(sensorData)
+
+typedef union LoRa_Packet {
+  sensorData sensor;
+  byte LoRaPacketBytes[PACKET_SIZE];
+};
+
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
 const unsigned TX_INTERVAL = 60;
@@ -67,6 +81,13 @@ const lmic_pinmap lmic_pins = {
     .rst = 14,
     .dio = {26, 33, 32},
 };
+
+const int DHTPin = 35;     
+#define DHTTYPE DHT11
+
+long randNumber;
+
+DHT dht(DHTPin, DHTTYPE);
 
 void onEvent (ev_t ev) {
     Serial.print(os_getTime());
@@ -138,8 +159,34 @@ void do_send(osjob_t* j){
     if (LMIC.opmode & OP_TXRXPEND) {
         Serial.println(F("OP_TXRXPEND, not sending"));
     } else {
+        LoRa_Packet levelinfo;
+        
+        levelinfo.sensor.level = 20;
+        
+        //float t = dht.readTemperature();
+        //float h = dht.readHumidity();
+        float t = random(24,26);
+        float h = random(33,36);
+        
+        levelinfo.sensor.temperature = t;
+        levelinfo.sensor.humidity = h;
+        
+        if (isnan(h) || isnan(t)) {
+          Serial.println("Fallo en la lectura del sensor DHT11");
+          return;
+        } else {
+          Serial.print("Humidity: ");
+          Serial.print(h);
+          Serial.print(" %\t");
+          Serial.print("Temperature: ");
+          Serial.print(t);
+          Serial.println(" *C ");    
+        }
+         
         // Prepare upstream data transmission at the next possible time.
-        LMIC_setTxData2(1, mydata, sizeof(mydata)-1, 0);
+        // LMIC_setTxData2(1, mydata, sizeof(mydata)-1, 0);
+        LMIC_setTxData2(1, levelinfo.LoRaPacketBytes, sizeof(levelinfo.LoRaPacketBytes), 0);
+
         Serial.println(F("Packet queued"));
     }
     // Next TX is scheduled after TX_COMPLETE event.

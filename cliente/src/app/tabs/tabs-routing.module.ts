@@ -16,8 +16,8 @@ const routes: Routes = [
       //   loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
       // },
       {
-        path: 'sensors',
-        loadChildren: () => import('../sensors/sensors.module').then(m => m.SensorsPageModule)
+        path: 'nodes',
+        loadChildren: () => import('../nodes/nodes.module').then(m => m.NodesPageModule)
       },
       {
         path: 'settings',
@@ -25,14 +25,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/sensors',
+        redirectTo: '/tabs/nodes',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/sensors',
+    redirectTo: '/tabs/nodes',
     pathMatch: 'full'
   }
 ];

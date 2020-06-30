@@ -3,7 +3,7 @@ var apiRoutes = express.Router();
 const auth = require('../middleware/auth')
 
 const userController = require('../controllers/user.js')
-const sensorController = require('../controllers/sensor.js')
+const nodosController = require('../controllers/node.js')
 const payloadController = require('../controllers/payload.js')
 const authController = require('../controllers/auth.js')
 
@@ -61,8 +61,8 @@ apiRoutes.put('/users/:user_id',auth, userController.updateUser)
 apiRoutes.delete('/users/:user_id',auth, userController.deleteUser)
   
 //Sensors
-apiRoutes.get('/sensors', sensorController.getSensors)
-apiRoutes.get('/sensors/:dev_id', sensorController.getSensor)
+apiRoutes.get('/nodes', nodosController.getNodes)
+apiRoutes.get('/nodes/:dev_id', nodosController.getNode)
 // apiRoutes.get('/songs', songController.getSongs)
 // apiRoutes.get('/songs/:song_id', songController.getSong)
 // apiRoutes.post('/songs', auth, songController.createSong)
@@ -71,6 +71,7 @@ apiRoutes.get('/sensors/:dev_id', sensorController.getSensor)
 
 //Paylods
 apiRoutes.get('/payloads/:dev_id/last', payloadController.getLastPayload)
+apiRoutes.get('/payloads/:dev_id', payloadController.getLastPayloads)
 
 //Misc
 apiRoutes.get('/private', auth, function(req,res){
