@@ -1,11 +1,9 @@
 var express     = require('express');
 var apiRoutes = express.Router(); 
-const auth = require('../middleware/auth')
 
 const userController = require('../controllers/user.js')
 const nodosController = require('../controllers/node.js')
 const payloadController = require('../controllers/payload.js')
-const authController = require('../controllers/auth.js')
 
 apiRoutes.get('/', function(req, res) {
     res.json({ message: 'Bienvenido a la api! Para ver las rutas acceda a /api/routes'});         
@@ -14,51 +12,38 @@ apiRoutes.get('/', function(req, res) {
 apiRoutes.get('/routes', function(req,res){
     res.json({message:[
         {
-            route: 'get /users'
+            route: 'get /user'
         },
         {
-            route: 'get /users/:user_id'
+            route: 'post /user'
         },
         {
-            route: 'post /users'
+            route: 'put /user'
         },
         {
-            route: 'put /users/:user_id'
+            route: 'get /nodes'
         },
         {
-            route: 'delete /users/:user_id'
+            route: 'get /nodes/:dev_id'
         },
         {
-            route: 'get /songs'
+            route: 'post /nodes/:dev_id/downlink'
         },
         {
-            route: 'get /songs/:song_id'
+            route: 'get /payloads/:dev_id'
         },
         {
-            route: 'post /songs'
-        },
-        {
-            route: 'put /songs/:song_id'
-        },
-        {
-            route: 'delete /songs/:song_id'
-        },
-        {
-            route: 'post /register'
-        },
-        {
-            route: 'post /login'
-        },
-        
+            route: 'get /payloads/:dev_id/last'
+        }
         ]})
 })
 
 // Users api
-apiRoutes.get('/users',auth, userController.getUsers)
-apiRoutes.get('/users/:user_id',auth, userController.getUser)
-apiRoutes.post('/users',auth, userController.createUser)
-apiRoutes.put('/users/:user_id',auth, userController.updateUser)
-apiRoutes.delete('/users/:user_id',auth, userController.deleteUser)
+apiRoutes.get('/users', userController.getUsers)
+apiRoutes.get('/users/:user_id', userController.getUser)
+apiRoutes.post('/users', userController.createUser)
+apiRoutes.put('/users/:user_id', userController.updateUser)
+apiRoutes.delete('/users/:user_id', userController.deleteUser)
   
 //Sensors
 apiRoutes.get('/nodes', nodosController.getNodes)
@@ -73,14 +58,6 @@ apiRoutes.get('/nodes/:dev_id', nodosController.getNode)
 apiRoutes.get('/payloads/:dev_id/last', payloadController.getLastPayload)
 apiRoutes.get('/payloads/:dev_id', payloadController.getLastPayloads)
 
-//Misc
-apiRoutes.get('/private', auth, function(req,res){
-    res.status(200).send({message: 'Tienes acceso'})
-})
-
-//Auth
-apiRoutes.post('/register', authController.signUp)
-apiRoutes.post('/login', authController.signIn)
 
 module.exports = apiRoutes
 

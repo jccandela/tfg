@@ -56,7 +56,7 @@ export class NodePage implements OnInit {
       //labels: ['1', '2', '3', '4', '5'],
       labels: this.payloads.map(
         function(x){
-
+          console.log(x);
           return new Date(x.payload_date).getHours() + ":" + new Date(x.payload_date).getMinutes();
         }
       ),

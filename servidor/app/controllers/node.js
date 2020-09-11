@@ -24,7 +24,7 @@ function createNode(sensorRaw){
                 console.log('El nodo ya existe');
             }
 
-            payload.save(sensorRaw.dev_id, sensorRaw.payload_fields);
+            payload.save(sensorRaw.dev_id, sensorRaw.payload_fields, sensorRaw.metadata);
         }       
     })
 }

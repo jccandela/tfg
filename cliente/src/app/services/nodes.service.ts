@@ -12,11 +12,14 @@ export class NodesService {
 
   private sensors: Node[] = [];
 
+  private url: string = "https://plataforma-tfg.herokuapp.com";
+ // private url: string = "http://localhost:3000";
+
   constructor(private http: HttpClient) { }
 
   getNodes(): Observable<Node[]> {
     //https://angular.io/tutorial/toh-pt6
-    return this.http.get<Node[]>('http://localhost:3000/api/nodes')
+    return this.http.get<Node[]>(this.url +'/api/nodes')
       .pipe(
         tap(_ => this.log('fetched nodes')),
         catchError(this.handleError<Node[]>('getNodes', []))
@@ -24,7 +27,7 @@ export class NodesService {
    }
 
   getNodesLastPayload(dev_id: string): Observable<Payload> {
-    return this.http.get<Payload>(`http://localhost:3000/api/payload/${dev_id}/last`)
+    return this.http.get<Payload>(`${this.url}/api/payload/${dev_id}/last`)
       .pipe(
         tap(_ => this.log('fetched nodes')),
         catchError(this.handleError<Payload>('getNodesLastPayload', null))
@@ -32,7 +35,7 @@ export class NodesService {
    }
 
    getNodePayloads(dev_id: string): Observable<Payload[]> {
-    return this.http.get<Payload[]>(`http://localhost:3000/api/payloads/${dev_id}`)
+    return this.http.get<Payload[]>(`${this.url}/api/payloads/${dev_id}`)
       .pipe(
         tap(_ => this.log('fetched nodes')),
         catchError(this.handleError<Payload[]>('getNodesLastPayload', null))

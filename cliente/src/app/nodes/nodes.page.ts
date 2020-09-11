@@ -21,7 +21,6 @@ export class NodesPage implements OnInit {
 
   async getNodes(): Promise<void> {
     this.sensorsService.getNodes().subscribe(sensors => this.sensors = sensors);
-    console.log(this.sensors);
   }
 
   displayNodes(){
