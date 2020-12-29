@@ -12,8 +12,8 @@ export class NodesService {
 
   private sensors: Node[] = [];
 
-  private url: string = "https://plataforma-tfg.herokuapp.com";
- // private url: string = "http://localhost:3000";
+  //private url: string = "https://plataforma-tfg.herokuapp.com";
+ private url: string = "http://localhost:3000";
 
   constructor(private http: HttpClient) { }
 
